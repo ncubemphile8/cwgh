@@ -34,6 +34,9 @@ For a production build, run npm run build and then npm start.
 - /news/itai-rusike-health-champion-2026
 - /portal — staff sign-in demonstration
 - /portal/dashboard — staff dashboard demonstration
+- /privacy — draft privacy and data protection notice
+- /safeguarding — draft safeguarding and responsible engagement framework
+- /accessibility — accessibility statement
 
 ## Staff portal demonstration
 
@@ -91,3 +94,18 @@ These are linked to their original LinkedIn posts so users can read the full upd
 ## Important
 
 This is a high-fidelity platform prototype and implementation foundation, not a production-ready internal information system. Complete security, privacy, access-control, backup, records-retention and safeguarding reviews before collecting real staff or community data.
+
+
+## Production foundation added
+
+- Supabase/PostgreSQL schema and row-level security migrations: `supabase/migrations/`.
+- Environment variable template: `.env.example`.
+- Production launch and security checklist: `docs/PRODUCTION_LAUNCH.md`.
+- GitHub Actions type-check and production-build workflow: `.github/workflows/ci.yml`.
+- Search metadata endpoints: `/sitemap.xml`, `/robots.txt`, and `/manifest.webmanifest`.
+- Baseline HTTP security headers, keyboard skip navigation, visible focus states and reduced-motion support.
+- Draft privacy, safeguarding and accessibility pages for CWGH approval.
+
+## Important distinction
+
+The Supabase migrations define the data model and access-control starting point; the Next.js staff portal has not yet been connected to Supabase Auth or live database queries. Do not use the demonstration login or sample records for real staff, financial, patient or beneficiary information. Configure the CWGH-owned Supabase and email accounts, review the policies, then implement and test the authenticated server actions before launch.
