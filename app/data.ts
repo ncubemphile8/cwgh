@@ -14,7 +14,9 @@ export const NAV = [
   { label: "Advocacy", href: "/advocacy" },
   { label: "Impact", href: "/impact" },
   { label: "News & insights", href: "/news" },
-  { label: "Resources", href: "/resources" }
+  { label: "Resources", href: "/resources" },
+  { label: "Partners", href: "/partners" },
+  { label: "Contact", href: "/contact" }
 ];
 
 export const CONTACT = {
