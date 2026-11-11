@@ -100,7 +100,8 @@ This is a high-fidelity platform prototype and implementation foundation, not a 
 
 ## Production foundation added
 
-- Supabase/PostgreSQL schema and row-level security migrations for profiles, hierarchy, projects, tasks, meetings, reports, field visits, documents, notifications, audit logs and attendance: `supabase/migrations/`.
+- Supabase/PostgreSQL schema and row-level security migration for profiles, hierarchy, projects, tasks, meetings, meeting attendees, reports, field visits, attendance records, documents, notifications and audit logs: `supabase/migrations/`.
+- Database trigger prevents staff from changing their own protected account fields (role, department, supervisor, employment status and work email); management changes remain subject to approved server-side workflows.
 - Environment variable template: `.env.example`.
 - Production launch and security checklist: `docs/PRODUCTION_LAUNCH.md`.
 - GitHub Actions type-check and production-build workflow: `.github/workflows/ci.yml`.
