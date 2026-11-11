@@ -224,6 +224,33 @@ as $$
   )
 $$;
 
+-- Prevent self-service privilege escalation even if a client submits protected columns.
+create or replace function public.prevent_profile_privilege_escalation()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $
+begin
+  if auth.uid() = old.id and (
+    new.id is distinct from old.id
+    or new.role is distinct from old.role
+    or new.department_id is distinct from old.department_id
+    or new.supervisor_id is distinct from old.supervisor_id
+    or new.is_active is distinct from old.is_active
+    or new.work_email is distinct from old.work_email
+    or new.created_at is distinct from old.created_at
+  ) then
+    raise exception 'Only authorised CWGH management may change protected staff account fields';
+  end if;
+  return new;
+end;
+$;
+
+create trigger protect_profile_privilege_fields
+before update on public.profiles
+for each row execute function public.prevent_profile_privilege_escalation();
+
 alter table public.departments enable row level security;
 alter table public.profiles enable row level security;
 alter table public.projects enable row level security;
@@ -248,19 +275,8 @@ for select to authenticated using (
   or supervisor_id = auth.uid()
   or exists (select 1 from public.profiles p where p.id = auth.uid() and p.department_id = profiles.department_id and p.is_active)
 );
--- Staff may edit contact/profile details only; role, department, supervisor,
--- employment status and work email remain controlled by authorised management.
 create policy "Staff can update own basic profile" on public.profiles
-for update to authenticated
-using (id = auth.uid())
-with check (
-  id = auth.uid()
-  and role = (select p.role from public.profiles p where p.id = auth.uid())
-  and department_id is not distinct from (select p.department_id from public.profiles p where p.id = auth.uid())
-  and supervisor_id is not distinct from (select p.supervisor_id from public.profiles p where p.id = auth.uid())
-  and is_active = (select p.is_active from public.profiles p where p.id = auth.uid())
-  and work_email = (select p.work_email from public.profiles p where p.id = auth.uid())
-);
+for update to authenticated using (id = auth.uid()) with check (id = auth.uid());
 create policy "Management manages profiles" on public.profiles
 for all to authenticated using (public.is_cwgh_management()) with check (public.is_cwgh_management());
 
