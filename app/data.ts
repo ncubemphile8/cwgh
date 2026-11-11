@@ -3,7 +3,7 @@ export const ITAI_PORTRAIT = "https://www.cwgh.co.zw/wp-content/uploads/2024/09/
 export const HERO_VIDEO_ID = "hPTYE-TuOXA";
 
 export const SOCIALS = [
-  { label: "Facebook", href: "https://www.facebook.com/CWGH/" },
+  { label: "Facebook", href: "https://www.facebook.com/people/Community-Working-Group-on-Health-CWGH/100064289635229/" },
   { label: "X", href: "https://x.com/CWGHZIMBABWE", handle: "@CWGHZIMBABWE" },
   { label: "Instagram", href: "https://www.instagram.com/cwgh_1/", handle: "@cwgh_1" }
 ];
@@ -149,6 +149,36 @@ export const NEWS = [
     image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1100&q=85",
     source: "CWGH",
     href: "https://docs.google.com/document/d/12lU5VAWW6DqLHumYFNGtS1BZ-0qSnW0C/edit?usp=sharing"
+  },
+  {
+    slug: "srhr-youth-services-masvingo",
+    title: "CWGH brings sexual and reproductive health services closer to young people in Masvingo",
+    date: "Recent field update · November 2026",
+    category: "Youth health & SRHR",
+    excerpt: "A CWGH awareness campaign in Vic Range, Masvingo brought youth-friendly sexual and reproductive health support closer to young people, including maternal and child health information, menstrual hygiene support, family planning, HIV testing and mental health support.",
+    image: "https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=1100&q=85",
+    source: "CWGH on LinkedIn",
+    href: "https://www.linkedin.com/posts/community-working-group-on-health_srhr-youthhealth-healthequity-activity-7496126048905043968-nEGp"
+  },
+  {
+    slug: "community-governance-rmncan",
+    title: "Strengthening community governance in Zimbabwe's RMNCAH+N services",
+    date: "2026 conference update",
+    category: "Health Centre Committees",
+    excerpt: "CWGH shared learning from a GIZ-supported programme implemented in 18 health facilities in Bubi and Mhondoro-Ngezi, highlighting the role of capacitated Health Centre Committees in stronger primary health care.",
+    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1100&q=85",
+    source: "CWGH on LinkedIn",
+    href: "https://www.linkedin.com/posts/community-working-group-on-health_cwgh-programmes-officer-mandy-mathias-presenting-activity-7435305362678992896-HM86"
+  },
+  {
+    slug: "reproductive-justice-litigation-baraza-2026",
+    title: "CWGH reflects on the 4th Annual Reproductive Justice Litigation Baraza",
+    date: "November 2026",
+    category: "Reproductive justice",
+    excerpt: "The 2026 Baraza convened legal practitioners, policymakers, civil society, young people and researchers from more than 14 countries for dialogue on age and sexual and reproductive health and rights.",
+    image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1100&q=85",
+    source: "CWGH on LinkedIn",
+    href: "https://www.linkedin.com/posts/community-working-group-on-health_reproductivejusticelitigationbaraza2026-srhr-activity-7498691957586661378-DbgQ"
   },
   {
     slug: "universal-health-coverage-day-2026",
