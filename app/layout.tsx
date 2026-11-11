@@ -24,7 +24,13 @@ export const metadata: Metadata = {
     description:
       "Health is your right and responsibility. Discover CWGH's community-led health advocacy across Zimbabwe.",
     type: "website",
-    locale: "en_ZW"
+    locale: "en_ZW",
+    siteName: "Community Working Group on Health"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CWGH | People's Health. Our Priority.",
+    description: "Community-led health advocacy, rights and equitable services in Zimbabwe."
   }
 };
 
