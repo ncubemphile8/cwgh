@@ -77,6 +77,17 @@ The repository is structured for Vercel's standard Next.js deployment. Connect n
 - CWGH 2025 annual report: https://drive.google.com/file/d/1zs4ONsrwX-DPrkE0R4s-Cnucwy_9jqSr/view?usp=sharing
 - CWGH 2027 National Health Budget position paper: https://docs.google.com/document/d/12lU5VAWW6DqLHumYFNGtS1BZ-0qSnW0C/edit?usp=sharing
 
+
+## Recent social-channel material included
+
+The newsroom and programme content also incorporates public posts from CWGH's LinkedIn activity:
+- SRHR awareness campaign in Vic Range, Masvingo, including youth access to MNCH information, menstrual hygiene support, family planning, HIV testing and mental health support: https://www.linkedin.com/posts/community-working-group-on-health_srhr-youthhealth-healthequity-activity-7496126048905043968-nEGp
+- Community governance learning from a GIZ-supported Health Centre Committee programme in 18 facilities across Bubi and Mhondoro-Ngezi: https://www.linkedin.com/posts/community-working-group-on-health_cwgh-programmes-officer-mandy-mathias-presenting-activity-7435305362678992896-HM86
+- 4th Annual Reproductive Justice Litigation Baraza 2026 recap: https://www.linkedin.com/posts/community-working-group-on-health_reproductivejusticelitigationbaraza2026-srhr-activity-7498691957586661378-DbgQ
+- 2027 health budget and domestic resource mobilisation update: https://www.linkedin.com/posts/community-working-group-on-health_2027healthbudget-healthfinancing-domesticresourcemobilisation-activity-7503004773072400384-HLK1
+
+These are linked to their original LinkedIn posts so users can read the full updates and view CWGH's original media.
+
 ## Important
 
 This is a high-fidelity platform prototype and implementation foundation, not a production-ready internal information system. Complete security, privacy, access-control, backup, records-retention and safeguarding reviews before collecting real staff or community data.
