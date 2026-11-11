@@ -38,6 +38,8 @@ For a production build, run npm run build and then npm start.
 - /safeguarding — draft safeguarding and responsible engagement framework
 - /accessibility — accessibility statement
 
+The staff preview includes overview, tasks, reports, meetings, attendance, notifications, field operations, documents and team hierarchy sections.
+
 ## Staff portal demonstration
 
 The requested temporary demonstration credentials are:
@@ -98,7 +100,7 @@ This is a high-fidelity platform prototype and implementation foundation, not a 
 
 ## Production foundation added
 
-- Supabase/PostgreSQL schema and row-level security migrations: `supabase/migrations/`.
+- Supabase/PostgreSQL schema and row-level security migrations for profiles, hierarchy, projects, tasks, meetings, reports, field visits, documents, notifications, audit logs and attendance: `supabase/migrations/`.
 - Environment variable template: `.env.example`.
 - Production launch and security checklist: `docs/PRODUCTION_LAUNCH.md`.
 - GitHub Actions type-check and production-build workflow: `.github/workflows/ci.yml`.
