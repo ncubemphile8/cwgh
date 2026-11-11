@@ -384,7 +384,7 @@ button { cursor: pointer; }
 .user-chip b { font-size: 10px; }
 .user-chip small { color: #888; font-size: 8px; }
 .portal-content { padding: 31px 35px 35px; }
-.portal-welcome-row { display: flex; justify-content: space-between; align-items: end; gap: 25px; margin-bottom: 23px; }
+.portal-welcome-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 25px; margin-bottom: 23px; }
 .portal-welcome-row .eyebrow { font-size: 8px; }
 .portal-welcome-row h1 { margin: 8px 0 5px; font-family: var(--font-display); font-size: 29px; letter-spacing: -.05em; }
 .portal-welcome-row p { margin: 0; color: #858585; font-size: 11px; }
