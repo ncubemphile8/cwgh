@@ -141,6 +141,24 @@ create table public.documents (
   created_at timestamptz not null default now()
 );
 
+create table public.attendance_records (
+  id uuid primary key default gen_random_uuid(),
+  profile_id uuid not null references public.profiles(id) on delete restrict,
+  work_date date not null default current_date,
+  check_in_at timestamptz,
+  check_out_at timestamptz,
+  status text not null default 'present' check (status in ('present','late','absent','leave','off_site')),
+  note text,
+  recorded_by uuid references public.profiles(id) on delete set null,
+  reviewed_by uuid references public.profiles(id) on delete set null,
+  reviewed_at timestamptz,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  unique (profile_id, work_date),
+  check (check_out_at is null or check_in_at is not null),
+  check (check_out_at is null or check_out_at >= check_in_at)
+);
+
 create table public.notifications (
   id uuid primary key default gen_random_uuid(),
   recipient_id uuid not null references public.profiles(id) on delete cascade,
@@ -168,6 +186,7 @@ create index meetings_start_idx on public.meetings (starts_at);
 create index reports_author_status_idx on public.reports (author_id, status);
 create index field_visits_officer_date_idx on public.field_visits (officer_id, visit_date desc);
 create index notifications_recipient_schedule_idx on public.notifications (recipient_id, scheduled_for);
+create index attendance_profile_date_idx on public.attendance_records (profile_id, work_date desc);
 create index audit_logs_created_idx on public.audit_logs (created_at desc);
 
 create or replace function public.current_cwgh_role()
@@ -215,6 +234,7 @@ alter table public.reports enable row level security;
 alter table public.field_visits enable row level security;
 alter table public.documents enable row level security;
 alter table public.notifications enable row level security;
+alter table public.attendance_records enable row level security;
 alter table public.audit_logs enable row level security;
 
 create policy "Active staff can view departments" on public.departments
@@ -228,8 +248,19 @@ for select to authenticated using (
   or supervisor_id = auth.uid()
   or exists (select 1 from public.profiles p where p.id = auth.uid() and p.department_id = profiles.department_id and p.is_active)
 );
+-- Staff may edit contact/profile details only; role, department, supervisor,
+-- employment status and work email remain controlled by authorised management.
 create policy "Staff can update own basic profile" on public.profiles
-for update to authenticated using (id = auth.uid()) with check (id = auth.uid());
+for update to authenticated
+using (id = auth.uid())
+with check (
+  id = auth.uid()
+  and role = (select p.role from public.profiles p where p.id = auth.uid())
+  and department_id is not distinct from (select p.department_id from public.profiles p where p.id = auth.uid())
+  and supervisor_id is not distinct from (select p.supervisor_id from public.profiles p where p.id = auth.uid())
+  and is_active = (select p.is_active from public.profiles p where p.id = auth.uid())
+  and work_email = (select p.work_email from public.profiles p where p.id = auth.uid())
+);
 create policy "Management manages profiles" on public.profiles
 for all to authenticated using (public.is_cwgh_management()) with check (public.is_cwgh_management());
 
@@ -303,6 +334,18 @@ create policy "Staff mark own notifications read" on public.notifications
 for update to authenticated using (recipient_id = auth.uid()) with check (recipient_id = auth.uid());
 create policy "Management creates notifications" on public.notifications
 for insert to authenticated with check (public.is_cwgh_management());
+
+create policy "Staff view own attendance and supervisors view team attendance" on public.attendance_records
+for select to authenticated using (profile_id = auth.uid() or public.is_cwgh_supervisor());
+create policy "Staff submit own attendance" on public.attendance_records
+for insert to authenticated with check (profile_id = auth.uid() and recorded_by = auth.uid());
+create policy "Staff correct own unreviewed attendance" on public.attendance_records
+for update to authenticated
+using (profile_id = auth.uid() and reviewed_at is null)
+with check (profile_id = auth.uid() and reviewed_at is null and recorded_by = auth.uid());
+create policy "Supervisors review team attendance" on public.attendance_records
+for update to authenticated using (public.is_cwgh_supervisor())
+with check (public.is_cwgh_supervisor());
 
 create policy "Management views audit logs" on public.audit_logs
 for select to authenticated using (public.is_cwgh_management());
