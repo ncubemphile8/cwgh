@@ -8,7 +8,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "",
     ...Object.keys(PAGES).map((slug) => `/${slug}`),
     "/privacy",
-    "/safeguarding"
+    "/safeguarding",
+    "/accessibility"
   ];
   const newsRoutes = NEWS.map((story) => `/news/${story.slug}`);
   return [...staticRoutes, ...newsRoutes].map((route) => ({
