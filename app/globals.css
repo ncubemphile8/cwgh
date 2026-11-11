@@ -680,3 +680,56 @@ button { cursor: pointer; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+
+/* CWGH presentation refinement — immersive video, clearer hierarchy and touch-friendly motion */
+.hero-home {
+  min-height: min(820px, calc(100svh - 108px));
+  height: clamp(650px, calc(100svh - 108px), 820px);
+  background: #111;
+}
+.hero-home .hero-media {
+  background-position: center 42%;
+  transform: scale(1.015);
+}
+.hero-home .hero-media iframe {
+  opacity: .9;
+  filter: saturate(.9) contrast(1.04);
+}
+.hero-home .hero-shade {
+  background:
+    linear-gradient(90deg, rgba(9,11,11,.88) 0%, rgba(9,11,11,.70) 38%, rgba(9,11,11,.20) 78%, rgba(9,11,11,.18) 100%),
+    linear-gradient(0deg, rgba(0,0,0,.68) 0%, rgba(0,0,0,.06) 48%, rgba(0,0,0,.20) 100%);
+}
+.hero-home .hero-content { padding-top: 12px; }
+.hero-home .hero-kicker { letter-spacing: .19em; }
+.hero-home h1 { max-width: 900px; text-wrap: balance; }
+.hero-home .hero-content > p { max-width: 560px; line-height: 1.8; }
+.hero-home .hero-orange-orb { opacity: .65; filter: blur(2px); }
+.button, .text-link, .card-arrow, .campaign-more { transition: transform .25s ease, background .25s ease, color .25s ease, border-color .25s ease; }
+.button:hover, .card-arrow:hover { transform: translateY(-3px); }
+.programme-card, .campaign-card, .news-card { transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease; }
+.programme-card:hover, .campaign-card:hover, .news-card:hover { transform: translateY(-6px); }
+.programme-image img, .campaign-image img, .news-image img, .feature-story-image img, .about-image-wrap img {
+  transition: transform .7s cubic-bezier(.2,.7,.2,1), filter .5s ease;
+}
+.programme-card:hover .programme-image img, .campaign-card:hover .campaign-image img, .news-card:hover .news-image img {
+  transform: scale(1.045);
+}
+.site-header { transition: box-shadow .25s ease, background .25s ease; }
+.primary-nav > a { transition: color .2s ease, background .2s ease, transform .2s ease; }
+:target { scroll-margin-top: 112px; }
+@media (max-width: 850px) {
+  .hero-home { min-height: 680px; height: 82svh; }
+  .hero-home .hero-media iframe { opacity: .78; }
+  .hero-home .hero-shade {
+    background: linear-gradient(90deg, rgba(9,11,11,.82), rgba(9,11,11,.45)), linear-gradient(0deg, rgba(0,0,0,.62), transparent 72%);
+  }
+}
+@media (max-width: 600px) {
+  .hero-home { min-height: 700px; height: 84svh; }
+  .hero-home .hero-media { background-position: 57% center; }
+  .hero-home .hero-media iframe { opacity: .68; }
+  .hero-home .hero-content > p { max-width: 340px; }
+  .programme-card:hover, .campaign-card:hover, .news-card:hover { transform: none; }
+}
