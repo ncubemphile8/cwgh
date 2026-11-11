@@ -10,7 +10,10 @@ const roles = [
   "Senior Management",
   "Programme Manager",
   "Field Supervisor",
-  "Field Officer"
+  "Field Officer",
+  "Communications Officer",
+  "Finance Officer",
+  "System Administrator"
 ];
 
 const initialTasks = [
@@ -24,6 +27,18 @@ const meetings = [
   { day: "12", month: "NOV", title: "Programme coordination check-in", time: "09:30 – 10:15", place: "Online · Teams" },
   { day: "13", month: "NOV", title: "Field operations review", time: "11:00 – 12:00", place: "Conference room" },
   { day: "16", month: "NOV", title: "Senior management meeting", time: "09:00 – 10:30", place: "Harare Head Office" }
+];
+
+const attendanceRows = [
+  { name: "Sample field officer", team: "Community participation", in: "08:05", out: "—", status: "On site" },
+  { name: "Sample programme officer", team: "Youth health", in: "08:22", out: "—", status: "On site" },
+  { name: "Sample supervisor", team: "Field operations", in: "07:54", out: "16:10", status: "Complete" }
+];
+
+const notifications = [
+  { title: "Programme report awaiting review", detail: "A submitted report is ready for supervisor review.", when: "Today · 09:10" },
+  { title: "Management meeting reminder", detail: "Prepare agenda items before the scheduled meeting.", when: "Today · 08:00" },
+  { title: "Field follow-up due", detail: "A sample community visit record requires follow-up.", when: "Yesterday · 15:40" }
 ];
 
 const fieldReports = [
@@ -68,7 +83,9 @@ export default function PortalDashboardPage() {
     { label: "Overview", icon: "◫" },
     { label: "My tasks", icon: "✓" },
     { label: "Reports", icon: "▤" },
+    { label: "Attendance", icon: "◷" },
     { label: "Meetings", icon: "▦" },
+    { label: "Notifications", icon: "♢" },
     { label: "Field operations", icon: "⌖" },
     { label: "Documents", icon: "▱" },
     { label: "Team & roles", icon: "♙" }
@@ -104,7 +121,7 @@ export default function PortalDashboardPage() {
         </header>
         <div className="portal-content">
           <div className="portal-welcome-row">
-            <div><span className="eyebrow"><i /> WEDNESDAY · 11 NOVEMBER 2026</span><h1>{activeTab === "Overview" ? "Good afternoon, CWGH." : activeTab + "."}</h1><p>{activeTab === "Overview" ? "Here is the organisation's activity snapshot and what needs attention." : "A demonstration view of the " + activeTab.toLowerCase() + " workspace."}</p></div>
+            <div><span className="eyebrow"><i /> CWGH STAFF OPERATIONS</span><h1>{activeTab === "Overview" ? "Good afternoon, CWGH." : activeTab + "."}</h1><p>{activeTab === "Overview" ? "Here is the organisation's activity snapshot and what needs attention." : "A demonstration view of the " + activeTab.toLowerCase() + " workspace."}</p></div>
             <label className="role-switch">Preview role <select value={role} onChange={(event) => setRole(event.target.value)}>{roles.map((item) => <option key={item}>{item}</option>)}</select></label>
           </div>
 
@@ -153,6 +170,18 @@ export default function PortalDashboardPage() {
             <section className="portal-panel full-panel"><div className="panel-heading"><div><span className="eyebrow"><i /> WORK QUEUE</span><h2>Tasks & follow-ups</h2></div><button onClick={() => actionNotice("Task creation is available in the connected production workflow.")}>＋ New task</button></div><div className="task-list">{tasks.map((task) => <label key={task.id} className={"task-row " + (task.status ? "task-done" : "")}><input type="checkbox" checked={task.status} onChange={() => toggleTask(task.id)} /><span className="task-check" /><span className="task-copy"><b>{task.title}</b><small>{task.owner}</small></span><span className="task-due">{task.due}</span></label>)}</div></section>
           ) : null}
 
+          {activeTab === "Attendance" ? (
+            <section className="portal-panel full-panel">
+              <div className="panel-heading"><div><span className="eyebrow"><i /> STAFF TIME & PRESENCE</span><h2>Attendance overview</h2></div><button onClick={() => actionNotice("Live clock-in, location controls and supervisor approval require the connected staff system.")}>＋ Record attendance</button></div>
+              <div className="sample-banner"><b>Illustrative records</b><span>These examples are not actual CWGH staff attendance. Production attendance needs approved policies for working hours, corrections, leave and location privacy.</span></div>
+              <div className="portal-table-wrap"><table className="portal-table"><thead><tr><th>STAFF MEMBER</th><th>TEAM</th><th>CHECK IN</th><th>CHECK OUT</th><th>STATUS</th></tr></thead><tbody>{attendanceRows.map((row) => <tr key={row.name}><td>{row.name}</td><td>{row.team}</td><td>{row.in}</td><td>{row.out}</td><td><span className="status-label status-green">{row.status}</span></td></tr>)}</tbody></table></div>
+            </section>
+          ) : null}
+
+          {activeTab === "Notifications" ? (
+            <section className="portal-panel full-panel"><div className="panel-heading"><div><span className="eyebrow"><i /> ALERT CENTRE</span><h2>Updates & reminders</h2></div><button onClick={() => actionNotice("Notification delivery will be enabled after email and calendar services are connected.")}>Notification settings</button></div><div className="meeting-list">{notifications.map((item) => <div className="meeting-row meeting-row-large" key={item.title}><div className="meeting-date"><b>•</b><span>NEW</span></div><div><b>{item.title}</b><small>{item.detail}</small><small>{item.when}</small></div></div>)}</div></section>
+          ) : null}
+
           {activeTab === "Meetings" ? (
             <section className="portal-panel full-panel"><div className="panel-heading"><div><span className="eyebrow"><i /> ORGANISATIONAL CALENDAR</span><h2>Meetings & deadlines</h2></div><button onClick={() => actionNotice("Meeting creation would connect to CWGH's shared calendar.")}>＋ Schedule meeting</button></div><div className="meeting-list">{meetings.map((meeting) => <div className="meeting-row meeting-row-large" key={meeting.title}><div className="meeting-date"><b>{meeting.day}</b><span>{meeting.month}</span></div><div><b>{meeting.title}</b><small>{meeting.time} · {meeting.place}</small><small>Agenda and reminders can be shared with invited staff.</small></div><button onClick={() => actionNotice("Meeting details preview opened.")}>Details ↗</button></div>)}</div></section>
           ) : null}
@@ -170,7 +199,7 @@ export default function PortalDashboardPage() {
           ) : null}
 
           {activeTab === "Team & roles" ? (
-            <section className="portal-panel full-panel"><div className="panel-heading"><div><span className="eyebrow"><i /> ACCESS STRUCTURE</span><h2>Team hierarchy & permissions</h2></div><button onClick={() => actionNotice("Only authorised administrators can create real staff accounts.")}>＋ Add employee</button></div><div className="role-grid">{roles.map((item, index) => <div className="role-card" key={item}><span>LEVEL 0{index + 1}</span><h3>{item}</h3><p>{["Organisation-wide oversight, strategy and final approvals.","Department oversight, resource coordination and review.","Programme delivery, milestones, budgets and team reports.","Field team supervision, quality checks and report verification.","Assigned activities, attendance and field or programme submissions."][index]}</p></div>)}</div></section>
+            <section className="portal-panel full-panel"><div className="panel-heading"><div><span className="eyebrow"><i /> ACCESS STRUCTURE</span><h2>Team hierarchy & permissions</h2></div><button onClick={() => actionNotice("Only authorised administrators can create real staff accounts.")}>＋ Add employee</button></div><div className="role-grid">{roles.map((item, index) => <div className="role-card" key={item}><span>LEVEL 0{index + 1}</span><h3>{item}</h3><p>{["Organisation-wide oversight, strategy and final approvals.","Department oversight, resource coordination and review.","Programme delivery, milestones, budgets and team reports.","Field team supervision, quality checks and report verification.","Assigned activities, attendance and field or programme submissions.","Approved public communications, campaigns and media content.","Restricted finance workflows, reconciliations and budget reporting.","Technical configuration, access administration and security oversight."][index]}</p></div>)}</div></section>
           ) : null}
 
           <div className="portal-footnote">CWGH Staff Workspace · Preview build · Demonstration records only · Real authentication, data storage and permissions are not yet connected.</div>
